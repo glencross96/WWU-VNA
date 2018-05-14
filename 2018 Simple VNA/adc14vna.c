@@ -101,6 +101,36 @@ int adc14_main(void)
 {
     int i;
 
+    /* This stuff added by Rob to make sure we are ok at 48 MHz.  It is probably not
+     * needed, but might help.
+     */
+    /*
+     * Starting HFXT in non-bypass mode without a timeout. Before we start
+     * we have to change VCORE to 1 to support the 48MHz frequency
+     */
+    PCM_setCoreVoltageLevel(PCM_VCORE1);
+
+    /*
+     * Revision C silicon supports wait states of 1 at 48Mhz
+     */
+    FlashCtl_setWaitState(FLASH_BANK0, 1);
+    FlashCtl_setWaitState(FLASH_BANK1, 1);
+
+    /*
+     * Setting up clocks
+     * MCLK = MCLK = 48MHz
+     * SMCLK = MCLK/2 = 24Mhz
+     * ACLK = REFO = 32Khz
+     */
+    CS_setDCOFrequency(48000000);
+    CS_initClockSignal(CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    CS_initClockSignal(CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_2);
+    CS_initClockSignal(CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+
+    /* End: this stuff added by Rob to make sure we are ok at 48 MHz.  It is probably not
+     * needed, but might help.
+     */
+
     // Register interrupt (sets up IRQ vectors) using TI-RTOS which Energia uses.
     Hwi_Params params;
     Hwi_Params_init(&params);

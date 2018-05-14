@@ -13,9 +13,9 @@
 
 #define SAMPLE_FREQUENCY    7956
 #define SAMPLE_LENGTH       3840/2  // 8192 is too big.
-#define F_IF 500
+#define F_IF 285
 #define OMEGA_IF F_IF*TWO_PI
-#define SAMPLES_IN_ONE_CYCLE 384 //(int)((float)SAMPLE_FREQUENCY/(float)F_IF)
+#define SAMPLES_IN_ONE_CYCLE SAMPLE_FREQUENCY/F_IF
 /* Make sure these above are such that SAMPLE_FREQUENCY/OMEGA_IF/4 is an integer
  * so that there are an integer number of points in a quarter cycles of the IF frequency.
  */
