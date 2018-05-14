@@ -49,8 +49,8 @@
  *             ------------------
  *         /|\|                  |
  *          | |                  |
- *          --|RST         P4.7  |<--- A6, Ain+
- *            |            P4.6  |<--- A7, Ain-
+ *          --|RST         P6.1  |<--- A14
+ *            |            P4.0  |<--- A13
  *            |                  |
  *            |            P1.1  |<--- GPIO trigger to Start conversions
  *            |                  |
@@ -178,7 +178,7 @@ int main(void)
      * single-ended
      */
     ADC14_configureConversionMemory(ADC_MEM0, ADC_VREFPOS_INTBUF_VREFNEG_VSS,
-    ADC_INPUT_A6, ADC_DIFFERENTIAL_INPUTS);
+    ADC_INPUT_A6, ADC_NONDIFFERENTIAL_INPUTS);
     /*
      * Configuring the sample trigger to be sourced from Timer_A0 CCR1 and on the
      * rising edge, default samplemode is extended (SHP=0)
